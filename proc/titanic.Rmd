@@ -1,0 +1,183 @@
+---
+title: "Titanic"
+author: "DSA"
+date: "7 de fevereiro de 2020"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+
+```{r}
+
+```
+
+## **Titanic**
+
+
+#### Construído há 100 anos para ser o maior, o mais luxuoso, o mais seguro transatlântico do mundo, o Titanic e o seu naufrágio deixaram marcas na história do século XX. O glamour e a grandiosidade que cercavam o projeto do navio o levaram a ser acompanhado com interesse desde a sua construção. A partida atraiu milhares de pessoas ao porto de Southampton, enquanto milionários e expoentes das altas sociedades britânica e americana embarcavam no Titanic.
+
+#### Mas o sonho de um navio inafundável ruiria apenas cinco dias após ele levantar âncora para sua viagem inaugural. Na madrugada de 15 de abril, o navio afundava no Atlântico Norte. A partir dali, surgiam o mito, as relatos fantásticos de sobreviventes, a controvérsia das causas e infindáveis produções culturais, incluindo um dos filmes de maior sucesso de bilheteria de todos os tempos. Conheça a seguir a história da mais famosa *tragédia em alto mar.
+
+
+### 1.1 Analise Estatisitca de Dados
+
+
+
+### Analise Descritiva das Variaveis
+
+
+* **Pclass:** (primeira, segunda, terceira)
+
+* **Survived:** Se sobreviveu ou não (1: Sim - 0: Não)
+
+* **Age:** Idade em anos
+
+* **fare:** tarifa para passageiro
+
+
+
+#### 2.1 Idade
+Foi possivel perceber que a maior parte da idade dos passageiros tinha entre 20 e 30 anos
+```{r,echo=TRUE, fig.cap='Dados Titanic'}
+summary(dados$Age)
+
+hist(dados$Age, col = 'green', main = 'Idade da Tripulação')
+
+
+```
+
+
+#### 2.2 Tarifa Paga
+
+
+```{r, fig.cap='Fonte: Dados Titanic'}
+summary(dados$Fare)
+
+boxplot(dados$Fare, main ='Tarifa paga pelos Passageiros', col = 'red')
+
+
+
+
+
+
+
+
+
+
+```
+
+
+
+### 2.3 Classe dos passageiros
+
+```{r, fig.cap='fonte: classe dos passageiros'}
+
+
+b<-table(dados$Pclass)
+b
+
+barplot(b, main = "quantidade de Passageiro por Classe")
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###Localização do Naufragio
+```{r}
+
+install.packages('leaflet')
+library(magrittr)
+library(leaflet)
+library(jsonlite)
+
+
+
+leaflet()%>% addTiles()%>% addMarkers(lat=41.726389,lng=-49.948333, popup="Titanic")
+
+
+
+
+
+
+
+
+
+
+
+
+```
+
+
+
+
+### Banco de Dados
+```{r ,echo=TRUE}
+#PARA EXCLUIR O CODIGO DO PARAMETRO
+
+
+
+#install.packages('Knitr')
+#install.packages('Knitr')
+#install.packages('ggplot)
+library(knitr)
+library(tibble)
+library(knitr)
+library(ggplot2)
+library(ggplot)
+
+dados <- read.csv('train.csv')
+dados <- as.tibble(dados)
+
+head(dados)
+
+#transforma os tipo de dados de inter para float ou de inter para caracter
+
+dados$Pclass <- as.factor(dados$Pclass)
+
+dados$Survived <- as.factor(dados$Survived)
+
+dados$Name <- as.character(dados$Name)
+
+dados$Cabin <- as.character(dados$Cabin)
+
+#dados$home.dest <- as.character(dados$home.dest)
+
+
+str(dados$Sex)
+
+levels(dados$Pclass)<- c('Primeira classe','Segunda Classe','Terceira Classse')
+
+levels(dados$Survived) <- c('Não Sobreviveu','Sobreviveu')
+levels(dados$Sex) <- c('feminino','Masculino')
+
+str(dados$Survived)
+
+
+kable(dados[1:6,], caption = 'dados do Titanic')
+
+
+
+
+
+```
+
+
+
+
+
+
+
